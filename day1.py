@@ -1,21 +1,27 @@
 # Advent of Code 2021
-# day 1
+# empty profile for new day 1
+
+import timeit
 
 with open('inputfiles/day1.txt', "r") as f:
     data = f.read().splitlines()
 
 
-# do something with the data
 def part1():
     """ first part of puzzle"""
-    pass
 
 
 def part2():
-    """ first part of puzzle"""
-    pass
+    """ second part of puzzle"""
 
 
 if __name__ == "__main__":
+    start = timeit.default_timer()
     part1()
     part2()
+    stop = timeit.default_timer()
+
+    print(f"\nTook {stop - start} seconds to finish")
+
+
+
