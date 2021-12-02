@@ -1,6 +1,6 @@
 # Advent of Code 2021
 # Day 2: Part I + II
-
+import sys
 import timeit
 
 with open('inputfiles/day2.txt', "r") as f:
@@ -21,8 +21,25 @@ def part1():
             depth += int(value)
         elif instruction == "up":
             depth -= int(value)
-        else:
-            print("Error reading the instructions")
+
+    return horizontal * depth
+
+
+def part1_python3_10():
+    """ first part of puzzle"""
+    horizontal = 0
+    depth = 0
+
+    for line in data:
+        instruction, value = line.split()
+
+        match instruction:
+            case "forward":
+                horizontal += int(value)
+            case "down":
+                depth += int(value)
+            case "up":
+                depth -= int(value)
 
     return horizontal * depth
 
@@ -43,16 +60,39 @@ def part2():
             aim += int(value)
         elif instruction == "up":
             aim -= int(value)
-        else:
-            print("Error reading the instructions")
+
+    return horizontal * depth
+
+
+def part2_python3_10():
+    """ second part of puzzle"""
+    horizontal = 0
+    depth = 0
+    aim = 0
+
+    for line in data:
+        instruction, value = line.split()
+
+        match instruction:
+            case "forward":
+                horizontal += int(value)
+                depth += int(value)*aim
+            case "down":
+                aim += int(value)
+            case "up":
+                aim -= int(value)
 
     return horizontal * depth
 
 
 if __name__ == "__main__":
     start = timeit.default_timer()
-    print(part1())
-    print(part2())
+    if int(sys.version[2:4]) < 10:
+        print(part1_python3_10())
+        print(part2_python3_10())
+    else:
+        print(part1())
+        print(part2())
     stop = timeit.default_timer()
 
     print(f"\nTook {stop - start} seconds to finish")
