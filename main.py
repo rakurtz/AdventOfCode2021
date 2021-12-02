@@ -1,5 +1,5 @@
 # Advent of Code 2021
-# empty profile for new day 1
+# Day 2: Part I + II
 
 import timeit
 
