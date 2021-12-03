@@ -9,7 +9,8 @@ with open('inputfiles/day3.txt', "r") as f:
 
 def part1_string_based():
     """ first part of puzzle """
-    count_ones = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    #count_ones = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    count_ones = [0] * len(data[0])
     gamma_rate = ""
     epsilon_rate = ""
 
@@ -44,23 +45,19 @@ def part2_string_based():
         return x
 
     def reduce_input(input_data, position, only_keep_value: str):
-        reduced_data = []
-        for string_number in input_data:
-            if string_number[position] == only_keep_value:
-                reduced_data.append(string_number)
-        return reduced_data
+        return [string for string in input_data if string[position] == only_keep_value]
 
 
     # reduce oxygen_generator
     for position in range(len(data[0])):
         if len(oxygen_generator) == 1:
             break
-
-        count = counter_for_position(oxygen_generator, position, "1")
-        if count >= len(oxygen_generator) / 2:
-            oxygen_generator = reduce_input(oxygen_generator, position, "1")
         else:
-            oxygen_generator = reduce_input(oxygen_generator, position, "0")
+            count = counter_for_position(oxygen_generator, position, "1")
+            if count >= len(oxygen_generator) / 2:
+                oxygen_generator = reduce_input(oxygen_generator, position, "1")
+            else:
+                oxygen_generator = reduce_input(oxygen_generator, position, "0")
 
 
     # reduce co2 scrubber
