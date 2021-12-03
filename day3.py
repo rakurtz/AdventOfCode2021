@@ -44,35 +44,43 @@ def part2_string_based():
                 x += 1
         return x
 
+
     def reduce_input(input_data, position, only_keep_value: str):
         return [string for string in input_data if string[position] == only_keep_value]
 
 
-    # reduce oxygen_generator
-    for position in range(len(data[0])):
-        if len(oxygen_generator) == 1:
-            break
-        else:
-            count = counter_for_position(oxygen_generator, position, "1")
-            if count >= len(oxygen_generator) / 2:
-                oxygen_generator = reduce_input(oxygen_generator, position, "1")
+    def get_life_support_rating(input_data, which:str):
+        """ can be oxy or co2"""
+        match which:
+            case "oxy":
+                by_value = "1"
+            case "co2":
+                by_value = "0"
+
+        for position in range(len(input_data[0])):
+            if len(input_data) == 1:
+                break
             else:
-                oxygen_generator = reduce_input(oxygen_generator, position, "0")
+                count = counter_for_position(input_data, position, by_value)
+                match which:
+                    case "oxy":
+                        if count >= len(input_data) / 2:
+                            input_data = reduce_input(input_data, position, "1")
+                        else:
+                            input_data = reduce_input(input_data, position, "0")
+                    case "co2":
+                        if count <= len(input_data) / 2:
+                            input_data = reduce_input(input_data, position, "0")
+                        else:
+                            input_data = reduce_input(input_data, position, "1")
+        return input_data
 
-
-    # reduce co2 scrubber
-    for position in range(len(data[0])):
-        if len(co2_scrubber) == 1:
-            break
-        count = counter_for_position(co2_scrubber, position, "0")
-        if count <= len(co2_scrubber) / 2:
-            co2_scrubber = reduce_input(co2_scrubber, position, "0")
-        else:
-            co2_scrubber = reduce_input(co2_scrubber, position, "1")
 
 
     # final result
-    return int(oxygen_generator[0], 2) * int(co2_scrubber[0], 2)
+    oxy = get_life_support_rating(data, "oxy")
+    co2 = get_life_support_rating(data, "co2")
+    return int(oxy[0], 2) * int(co2[0], 2)
 
 
 if __name__ == "__main__":
