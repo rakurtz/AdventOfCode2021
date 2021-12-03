@@ -32,11 +32,10 @@ def part1_string_based():
 
 def part2_string_based():
     """ second part of puzzle"""
-
     oxygen_generator = data
     co2_scrubber = data
 
-    def counter_for_position(input_data, position, by_value):
+    def counter_for_position(input_data, position, by_value: str):
         """ returns most common digit at given position """
         x = 0
         for string_number in input_data:
@@ -44,7 +43,7 @@ def part2_string_based():
                 x += 1
         return x
 
-    def reduce_input(input_data, position, only_keep_value):
+    def reduce_input(input_data, position, only_keep_value: str):
         reduced_data = []
         for string_number in input_data:
             if string_number[position] == only_keep_value:
