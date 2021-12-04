@@ -1,5 +1,5 @@
 # Advent of Code 2021
-# Day 4: Part I + II
+# Day 4: Part I
 
 import timeit
 
