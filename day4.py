@@ -56,9 +56,8 @@ def part1():
                 winner_board_sum = sum_unmarked(board_index)
                 break
 
-        if bingo:
-            break
 
+    # final return of part1()
     return winner_board_sum * winning_number
 
 
