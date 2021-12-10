@@ -1,7 +1,7 @@
 # Advent of Code 2021
 # Day 5: Part I + II
 import timeit
-
+from pprint import pprint
 
 def create_map_of_zeros(size: int):
     """ creates a map of 1000 x 1000 filled with zeros """
@@ -22,22 +22,57 @@ def calculate_line_points(data):
         x1, y1 = map(lambda coordinate: int(coordinate), start_point.split(","))
         x2, y2 = map(lambda coordinate: int(coordinate), end_point.split(","))
 
-        if x1 == x2:
+        if y1 == y2:
+            if x1 < x2:
+                for x_step in range(abs(x1 - x2) + 1):
+                    my_map[y1][x1 + x_step] += 1
+            else:
+                for x_step in range(abs(x1 - x2) + 1):
+                    my_map[y1][x1 - x_step] += 1
+
+        elif x1 == x2:
             # take care: in my_map y is the first index and x is the second!!
             if y1 < y2:
-                for y_coordinate in range(abs(y1 - y2) + 1):
-                    my_map[y1 + y_coordinate][x1] += 1
+                for y_step in range(abs(y1 - y2) + 1):
+                    my_map[y1 + y_step][x1] += 1
             else:
-                for y_coordinate in range(abs(y1 - y2) + 1):
-                    my_map[y1 - y_coordinate][x1] += 1
+                for y_step in range(abs(y1 - y2) + 1):
+                    my_map[y1 - y_step][x1] += 1
 
-        elif y1 == y2:
-            if x1 < x2:
-                for x_coordinate in range(abs(x1 - x2) + 1):
-                    my_map[y1][x1 + x_coordinate] += 1
-            else:
-                for x_coordinate in range(abs(x1 - x2) + 1):
-                    my_map[y1][x1 - x_coordinate] += 1
+        elif abs(y1 - x1) == abs(y2 - x2):
+            # diagonal lines
+            if y1 < y2:
+                if x1 < x2:
+                    for step in range(abs(y1 - y2) + 1):
+                        my_map[y1 + step][x1 + step] = +1
+                elif x1 > x2:
+                    for step in range(abs(y1 - y2) + 1):
+                        my_map[y1 + step][x1 - step] = +1
+            elif y1 > y2:
+                if x1 < x2:
+                    for step in range(abs(y1 - y2) + 1):
+                        my_map[y1 - step][x1 + step] = +1
+                elif x1 > x2:
+                    for step in range(abs(y1 - y2) + 1):
+                        my_map[y1 - step][x1 - step] = +1
+
+        elif abs(y1 - x2) == abs(y2 - x1):
+            # diagonal lines
+            if y1 < y2:
+                if x1 < x2:
+                    for step in range(abs(y1 - x2) + 1):
+                        my_map[y1 + step][x1 + step] = +1
+                elif x1 > x2:
+                    for step in range(abs(y1 - x2) + 1):
+                        my_map[y1 + step][x1 - step] = +1
+            elif y1 > y2:
+                if x1 < x2:
+                    for step in range(abs(y1 - x2) + 1):
+                        my_map[y1 - step][x1 + step] = +1
+                elif x1 > x2:
+                    for step in range(abs(y1 - x2) + 1):
+                        my_map[y1 - step][x1 - step] = +1
+
 
 
 def count_cross_line_points():
@@ -54,16 +89,19 @@ def count_cross_line_points():
 if __name__ == "__main__":
     start = timeit.default_timer()
 
-    with open('inputfiles/day5.txt', "r") as f:
+    with open('inputfiles/day5_test.txt', "r") as f:
         data = f.read().splitlines()
 
-    my_map = create_map_of_zeros(1000)  # is a global...
+    my_map = create_map_of_zeros(10)  # is a global...
     calculate_line_points(data)
     result = count_cross_line_points()
 
     stop = timeit.default_timer()
 
     # The result...
+
+    pprint([[f"{number}" if number >= 1 else "." for number in line] for line in my_map])
+
     print(f"Part 1: There are {result} points of crossing lines")
     print(f"\nTook {stop - start} seconds to finish")
 
