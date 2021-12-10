@@ -106,4 +106,5 @@ if __name__ == "__main__":
     print(f"\nTook {stop - start} seconds to finish")
 
     # Part 1 = 7085 - Took 0.0987210419261828 seconds to finish
+    # Part 2 not working. Not counting all diagonal lines ...
 
