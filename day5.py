@@ -15,7 +15,7 @@ def create_map_of_zeros(size: int):
 
 
 def calculate_line_points(data):
-    """ calculates all points of a line in data and adds them to my_map dictionary"""
+    """ calculates all points of a line in data and adds them to my_map list"""
     global my_map
     for line in data:
         start_point, end_point = line.split("->")
@@ -41,8 +41,7 @@ def calculate_line_points(data):
 
 
 def count_cross_line_points():
-    """ what is the size of the whole field? returns for smallest and biggest number in input """
-
+    """ return the number of points where lines cross """
     counter = 0
     for y in range(len(my_map)):
         for x in range(len(my_map[0])):
