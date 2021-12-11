@@ -4,7 +4,8 @@
 import timeit
 
 
-def read_starting_population(data):
+def read_starting_population():
+    global data
     global population
     for fish in data:
         population[fish] += 1
@@ -14,14 +15,9 @@ def populate_another_day():
     """ calculates another day for all fish"""
     global population
 
+    # move population to the right and add new fish at the end...
     population = population[1:] + [population[0]]
     population[6] += population[8]
-
-    # another way: unpacking each day into temporary variable
-    # easier to understand what's happening here
-    # d0, d1, d2, d3, d4, d5, d6, d7, d8 = population
-    # population = [d1, d2, d3, d4, d5, d6, d7, d8, d0]   # "move" each to the left and add d0 as new fish
-    # population[6] += d0                                 # re-add d0 fish at day 6
 
 
 if __name__ == "__main__":
@@ -32,13 +28,13 @@ if __name__ == "__main__":
     data = map((lambda x: int(x)), data)
 
     population = [0] * 9  # each index represents the number of fish with there respektive days left
-
-    read_starting_population(data)
+    read_starting_population()
 
     for _ in range(80):
         populate_another_day()
 
     stop = timeit.default_timer()
+
     print(f"Part 1: {sum(population)}")
     print(f"\nTook {stop - start} seconds to finish")
 
