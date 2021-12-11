@@ -30,7 +30,7 @@ if __name__ == "__main__":
     population = [0] * 9  # each index represents the number of fish with there respektive days left
     read_starting_population()
 
-    for _ in range(80):
+    for _ in range(256):
         populate_another_day()
 
     stop = timeit.default_timer()
@@ -38,5 +38,6 @@ if __name__ == "__main__":
     print(f"Part 1: {sum(population)}")
     print(f"\nTook {stop - start} seconds to finish")
 
-    # Part 1: 387413 - Took 0.00011954200454056263 seconds to finish
+    # Part 1: 387413        - Took 0.00011954200454056263 seconds to finish
+    # Part 2: 1738377086345 - Took 0.00017133296933025122 seconds to finish
 
