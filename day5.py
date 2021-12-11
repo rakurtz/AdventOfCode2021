@@ -23,6 +23,7 @@ def calculate_line_points(data):
         x2, y2 = map(lambda coordinate: int(coordinate), end_point.split(","))
 
         if y1 == y2:
+            # vertical lines
             if x1 < x2:
                 for x_step in range(abs(x1 - x2) + 1):
                     my_map[y1][x1 + x_step] += 1
@@ -31,7 +32,7 @@ def calculate_line_points(data):
                     my_map[y1][x1 - x_step] += 1
 
         elif x1 == x2:
-            # take care: in my_map y is the first index and x is the second!!
+            # horizontal lines
             if y1 < y2:
                 for y_step in range(abs(y1 - y2) + 1):
                     my_map[y1 + y_step][x1] += 1
@@ -39,26 +40,27 @@ def calculate_line_points(data):
                 for y_step in range(abs(y1 - y2) + 1):
                     my_map[y1 - y_step][x1] += 1
 
-        elif abs(y1 - x1) == abs(y2 - x2):
+        elif abs(y1 - y2) == abs(x1 - x2):
             # diagonal lines
+            # north east
+            if x2 > x1 and y2 < y1:
+                for step in range(abs(y1 - y2) + 1):
+                    my_map[y1 - step][x1 + step] += 1
 
-            # TODO: There are other diagonal lines, where abs(y1 - x2) == abs(y2 - x1)
-            #       they are not considered here...
+            # south east
+            if x2 > x1 and y2 > y1:
+                for step in range(abs(y1 - y2) + 1):
+                    my_map[y1 + step][x1 + step] += 1
 
-            if y1 < y2:
-                if x1 < x2:
-                    for step in range(abs(y1 - y2) + 1):
-                        my_map[y1 + step][x1 + step] = +1
-                elif x1 > x2:
-                    for step in range(abs(y1 - y2) + 1):
-                        my_map[y1 + step][x1 - step] = +1
-            elif y1 > y2:
-                if x1 < x2:
-                    for step in range(abs(y1 - y2) + 1):
-                        my_map[y1 - step][x1 + step] = +1
-                elif x1 > x2:
-                    for step in range(abs(y1 - y2) + 1):
-                        my_map[y1 - step][x1 - step] = +1
+            # south west
+            if x2 < x1 and y2 > y1:
+                for step in range(abs(y1 - y2) + 1):
+                    my_map[y1 + step][x1 - step] += 1
+
+            # north west
+            if x2 < x1 and y2 < y1:
+                for step in range(abs(y1 - y2) + 1):
+                    my_map[y1 - step][x1 - step] += 1
 
 
 
@@ -87,12 +89,11 @@ if __name__ == "__main__":
     stop = timeit.default_timer()
 
     # The result...
-
     #pprint([[f"{number}" if number >= 1 else "." for number in line] for line in my_map])
 
     print(f"Part 1: There are {result} points of crossing lines")
     print(f"\nTook {stop - start} seconds to finish")
 
-    # Part 1 = 7085 - Took 0.0987210419261828 seconds to finish
-    # Part 2 not working. Not counting all diagonal lines ...
+    # Part 1 =  7085 - Took 0.0987210419261828 seconds to finish
+    # Part 2 = 20271 - Took 0.10050841700285673 seconds to finish
 
