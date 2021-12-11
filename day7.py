@@ -1,5 +1,5 @@
 # Advent of Code 2021
-# Day 7: Part I
+# Day 7: Part I + 2
 
 import timeit
 from statistics import median
