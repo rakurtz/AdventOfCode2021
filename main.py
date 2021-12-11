@@ -1,27 +1,20 @@
 # Advent of Code 2021
-# Day 2: Part I + II
+# Day x: Part I
 
 import timeit
 
-with open('inputfiles/day?.txt', "r") as f:
-    data = f.read().splitlines()
 
-
-def part1():
-    """ first part of puzzle"""
-
-
-def part2():
-    """ second part of puzzle"""
+def whatever():
+    """ whatever it does..."""
 
 
 if __name__ == "__main__":
     start = timeit.default_timer()
-    part1()
-    part2()
+    with open('inputfiles/day?.txt', "r") as f:
+        data = f.read().splitlines()
+
     stop = timeit.default_timer()
 
-    print(f"\nTook {stop - start} seconds to finish")
-
+    print(f"Took {stop - start} seconds to finish\n")
 
 
