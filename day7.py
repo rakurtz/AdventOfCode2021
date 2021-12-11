@@ -18,6 +18,9 @@ def calculate_fuel_for_point(horizontal_positions: list, reference_position: int
             n = abs(crab - reference_position)
             fuel += n * (n + 1) / 2
 
+            # the following solution was 900 times slower...
+            # fuel += sum(range(abs(crab - reference_position) + 1))
+
     return fuel
 
 
