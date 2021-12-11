@@ -1,5 +1,5 @@
 # Advent of Code 2021
-# Day 6: Part I
+# Day 6: Part I + II
 
 import timeit
 
@@ -37,7 +37,6 @@ if __name__ == "__main__":
             print(f"Took {stop1 - start} seconds to finish\n")
 
         populate_another_day()
-
 
     stop2 = timeit.default_timer()
     print(f"Part 2: {sum(population)}")
