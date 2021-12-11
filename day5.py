@@ -41,6 +41,10 @@ def calculate_line_points(data):
 
         elif abs(y1 - x1) == abs(y2 - x2):
             # diagonal lines
+
+            # TODO: There are other diagonal lines, where abs(y1 - x2) == abs(y2 - x1)
+            #       they are not considered here...
+
             if y1 < y2:
                 if x1 < x2:
                     for step in range(abs(y1 - y2) + 1):
@@ -56,22 +60,6 @@ def calculate_line_points(data):
                     for step in range(abs(y1 - y2) + 1):
                         my_map[y1 - step][x1 - step] = +1
 
-        elif abs(y1 - x2) == abs(y2 - x1):
-            # diagonal lines
-            if y1 < y2:
-                if x1 < x2:
-                    for step in range(abs(y1 - x2) + 1):
-                        my_map[y1 + step][x1 + step] = +1
-                elif x1 > x2:
-                    for step in range(abs(y1 - x2) + 1):
-                        my_map[y1 + step][x1 - step] = +1
-            elif y1 > y2:
-                if x1 < x2:
-                    for step in range(abs(y1 - x2) + 1):
-                        my_map[y1 - step][x1 + step] = +1
-                elif x1 > x2:
-                    for step in range(abs(y1 - x2) + 1):
-                        my_map[y1 - step][x1 - step] = +1
 
 
 
@@ -89,10 +77,10 @@ def count_cross_line_points():
 if __name__ == "__main__":
     start = timeit.default_timer()
 
-    with open('inputfiles/day5_test.txt', "r") as f:
+    with open('inputfiles/day5.txt', "r") as f:
         data = f.read().splitlines()
 
-    my_map = create_map_of_zeros(10)  # is a global...
+    my_map = create_map_of_zeros(1000)  # is a global...
     calculate_line_points(data)
     result = count_cross_line_points()
 
@@ -100,7 +88,7 @@ if __name__ == "__main__":
 
     # The result...
 
-    pprint([[f"{number}" if number >= 1 else "." for number in line] for line in my_map])
+    #pprint([[f"{number}" if number >= 1 else "." for number in line] for line in my_map])
 
     print(f"Part 1: There are {result} points of crossing lines")
     print(f"\nTook {stop - start} seconds to finish")
