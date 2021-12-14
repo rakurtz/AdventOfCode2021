@@ -120,8 +120,8 @@ if __name__ == "__main__":
 
     # Part II
     basins = find_basins(low_points, heat_map)
-    product_of_three_larges_basins = prod([len(basin) for basin in sorted(basins, key=len, reverse=True)[0:3]])
-    print(f"Part II: Product of three largest basins ist {product_of_three_larges_basins}")
+    product_of_three_largest_basins = prod([len(basin) for basin in sorted(basins, key=len, reverse=True)[0:3]])
+    print(f"Part II: Product of three largest basins ist {product_of_three_largest_basins}")
 
 
     stop = timeit.default_timer()
