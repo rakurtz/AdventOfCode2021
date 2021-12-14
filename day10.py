@@ -144,4 +144,4 @@ if __name__ == "__main__":
 
     # Part I:                              442131
     # Part II:                         3646451424
-    # All together:     Took 0.001856500002759276 seconds to finish
+    # All together:     Took 0.001856500002759276 seconds
