@@ -3,30 +3,29 @@
 
 import timeit
 
-
-def polymerize(sample: list, pair_insertion: dict):
+def polymerize(input_list: list, insertion_map: dict):
     """ iterates through sample pairwise and inserts from the pair_insertion dict
         TODO: compare efficiency of global sample or return sample
     """
     offset = 0
-    for index in range(len(sample)-1):
+    for index in range(len(input_list) - 1):
         corrected_index = index + offset
-        pair = "".join(sample[corrected_index:corrected_index+2])
-        sample.insert(corrected_index + 1, pair_insertion[pair])
+        pair = "".join(input_list[corrected_index:corrected_index + 2])
+        input_list.insert(corrected_index + 1, insertion_map[pair])
         offset += 1
 
-    return sample
+    return input_list
 
 
-def count_elements(sample: list):
+def count_elements(input_list: list):
     """ takes the sample and counts all occurrences
         returns a dict with {element: number}
     """
-    elements = set(sample)  # get unique elements
-    elements_count = {}
+    elements = set(input_list)  # get unique elements
+    counted = {}
     for element in elements:
-        elements_count[element] = sample.count(element)
-    return elements_count
+        counted[element] = input_list.count(element)
+    return counted
 
 
 if __name__ == "__main__":
@@ -35,20 +34,21 @@ if __name__ == "__main__":
         data = f.read().splitlines()
 
     sample = list(data.pop(0))
-    pair_insertion = {}
+    inerstion_map = {}
     for line in data[1:]:
-        key, value = line.split("->")
-        pair_insertion[key.strip()] = value.strip()
+        key, value = line.split(" -> ")
+        inerstion_map[key] = value
 
-    rounds_of_polymerization = 13
+
+    rounds_of_polymerization = 10
     for i in range(rounds_of_polymerization):
-        polymerize(sample, pair_insertion)
+        polymerize(sample, inerstion_map)
         #print(i, len(sample))
 
-    element_count = count_elements(sample)
-    most_common = max(element_count, key=element_count.get)
-    rarest = min(element_count, key=element_count.get)
-    result = element_count[most_common] - element_count[rarest]
+    counted = count_elements(sample)
+    most_common = max(counted, key=counted.get)
+    rarest = min(counted, key=counted.get)
+    result = counted[most_common] - counted[rarest]
 
     print(f"Part I: After {rounds_of_polymerization} rounds: most common element minus rarest element = {result}")
 
