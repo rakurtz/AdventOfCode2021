@@ -40,10 +40,10 @@ if __name__ == "__main__":
         inerstion_map[key] = value
 
 
-    rounds_of_polymerization = 10
+    rounds_of_polymerization = 40
     for i in range(rounds_of_polymerization):
         polymerize(sample, inerstion_map)
-        #print(i, len(sample))
+        print(i, len(sample))
 
     counted = count_elements(sample)
     most_common = max(counted, key=counted.get)
