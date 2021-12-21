@@ -12,14 +12,14 @@ def on_flash_increase_adjacent(y, x):
     """
     global data
 
-    n = (y + 1, x)
-    ne = (y + 1, x + 1)
+    n = (y - 1, x)
+    ne = (y - 1, x + 1)
     e = (y, x + 1)
-    se = (y - 1, x + 1)
-    s = (y - 1, x)
-    sw = (y - 1, x - 1)
+    se = (y + 1, x + 1)
+    s = (y + 1, x)
+    sw = (y + 1, x - 1)
     w = (y, x - 1)
-    nw = (y + 1, x - 1)
+    nw = (y - 1, x - 1)
 
     all_positions = [n, ne, e, se, s, sw, w, nw]
 
@@ -70,9 +70,10 @@ def printer(mode="string"):
         for row in data:
             print(''.join([str(i) for i in row]))
         print("\n")
-    else:
+    elif mode == "pprint":
         pprint(data)
-
+    else:
+        print(data)
     print()
 
 
@@ -93,16 +94,16 @@ if __name__ == "__main__":
     data = [[int(i) for i in line] for line in data]
     global_flash_counter = 0
 
-    #printer()
+    printer()
 
-    for _ in range(100):
+    for _ in range(10):
         already_flashed = []
 
         increase_all()
         repeated_flash()
         reset_flashed()
 
-        #printer()
+        printer()
 
     print(global_flash_counter, "\n")
     stop = timeit.default_timer()
